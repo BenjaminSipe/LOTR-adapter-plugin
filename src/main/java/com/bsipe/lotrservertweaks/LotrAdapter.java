@@ -20,6 +20,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -120,7 +121,7 @@ public class LotrAdapter
             ItemStack stack = null;
             if ( enchantment != null ) {
                 stack = new ItemStack( REPLACEMENT );
-                stack.addEnchantment( enchantment, enchantment.getMaxLevel() );
+                Items.enchanted_book.addEnchantment( stack, new EnchantmentData( enchantment, enchantment.getMaxLevel() ) );
             }
             player.playerNetServerHandler.sendPacket(new S2FPacketSetSlot(crafting.windowId, 0, stack));
 
@@ -169,7 +170,7 @@ public class LotrAdapter
         } else {
             ItemStack book = new ItemStack( REPLACEMENT );
             Enchantment e = Enchantment.enchantmentsList[sync[2]];
-            book.addEnchantment( e, e.getMaxLevel() );
+            Items.enchanted_book.addEnchantment( book, new EnchantmentData( e, e.getMaxLevel() ) );
             if ( ! player.inventory.addItemStackToInventory( book ) ) {
                 player.entityDropItem( book, 2 );
             }
